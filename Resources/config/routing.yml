@@ -1,0 +1,3 @@
+uncleempty_maintenance_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: UncleemptyMaintenanceBundle:Default:index }
