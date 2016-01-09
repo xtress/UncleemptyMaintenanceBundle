@@ -1,4 +1,12 @@
+parameters:
+    uncleempty_maintenance.listener.class: Uncleempty\MaintenanceBundle\EventListeners\MaintenanceEventListener
 services:
 #    uncleempty_maintenance.example:
 #        class: Uncleempty\MaintenanceBundle\Example
 #        arguments: [@service_id, "plain_value", %parameter%]
+
+    uncleempty_maintenance.listener:
+        class: %uncleempty_maintenance.listener.class%
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+        arguments: [@service_container]

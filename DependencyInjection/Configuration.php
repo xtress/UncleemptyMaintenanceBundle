@@ -20,9 +20,51 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('uncleempty_maintenance');
 
-        // Here you should define the parameters that are allowed to
-        // configure your bundle. See the documentation linked above for
-        // more information on that topic.
+        $rootNode
+            ->children()
+                ->booleanNode('enabled')
+                    ->defaultFalse()
+                    ->info('Is maintenance enabled')
+                ->end()
+                ->arrayNode('allowance')
+                    ->children()
+                        ->scalarNode('path')
+                            ->defaultNull()
+                        ->end()
+                        ->variableNode('ips')
+                            ->defaultValue(array())
+                        ->end()
+                    ->end()
+                ->end()
+                ->arrayNode('denial')
+                    ->children()
+                        ->integerNode('response_code')
+                            ->defaultValue(503)
+                        ->end()
+                        ->enumNode('response_type')
+                            ->values(['string', 'class'])
+                            ->defaultValue('string')
+                            ->validate()
+                                ->ifNotInArray(['string', 'class'])
+                                    ->thenInvalid('Invalid response type "%s" set.')
+                            ->end()
+                        ->end()
+                        ->scalarNode('response_class')
+                            ->defaultNull()
+                            ->info('This value is only used when response_type is "class" - when you need more complex answer, rather than a simple string.')
+                        ->end()
+                        ->scalarNode('response_message')
+                            ->defaultValue('Service is temporarily on maintenance.')
+                            ->info('This value is only used when response_type is "string".')
+                        ->end()
+                        ->scalarNode('response_maintenance_end_time')
+                            ->defaultValue('00:00')
+                            ->info('This value is only used when response_type is "string".')
+                        ->end()
+                    ->end()
+                ->end()
+            ->end()
+        ;
 
         return $treeBuilder;
     }
