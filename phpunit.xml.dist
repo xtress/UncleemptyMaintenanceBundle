@@ -7,12 +7,24 @@
         >
     <testsuites>
         <testsuite name="Maintenance Bundle Test Suite">
-            <directory>./Tests</directory>
+            <directory suffix="Test.php">./Tests</directory>
         </testsuite>
     </testsuites>
 
     <php>
-        <server name="KERNEL_DIR" value="./Tests/../../app/" />
+        <server name="KERNEL_DIR" value="./Tests/app/" />
     </php>
+
+    <filter>
+        <whitelist>
+            <directory>./</directory>
+            <exclude>
+                <directory>./Resources</directory>
+                <directory>./Fixtures</directory>
+                <directory>./Tests</directory>
+                <directory>./vendor</directory>
+            </exclude>
+        </whitelist>
+    </filter>
 
 </phpunit>
