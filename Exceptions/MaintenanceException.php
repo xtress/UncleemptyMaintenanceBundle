@@ -15,7 +15,7 @@ class MaintenanceException extends HttpException
 
     public function __construct($message, $code)
     {
-        parent::__construct($code, $message, null, null, $code);
+        parent::__construct($code, $message, null, [], $code);
     }
 
 }

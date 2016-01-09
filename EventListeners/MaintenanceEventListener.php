@@ -52,7 +52,7 @@ class MaintenanceEventListener
 
             if (is_array($this->params['allowance']['ips']) && !empty($this->params['allowance']['ips'])) {
                 if ($this->checkClientIp($request->getClientIp(), $this->params['allowance']['ips'])) {
-                    return;
+                    return true;
                 }
             }
 
@@ -61,13 +61,15 @@ class MaintenanceEventListener
                 && !empty($this->params['allowance']['path'])
                 && preg_match('{'.$this->params['allowance']['path'].'}', rawurldecode($request->getPathInfo()))
             ) {
-                return;
+                return true;
             }
 
             if (HttpKernelInterface::MASTER_REQUEST === $event->getRequestType()) {
                 $this->isResponseHandled = true;
                 throw new MaintenanceException($this->params['denial']['response_message'], $this->params['denial']['response_code']);
             }
+        } else {
+            return true;
         }
     }
 
