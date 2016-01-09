@@ -40,9 +40,9 @@ class MaintenanceEventListener
     {
         $this->params = $config;
     }
-
+    
     /**
-     * @throws MaintenanceException
+     * @param GetResponseEvent $event
      */
     public function onKernelRequest(GetResponseEvent $event)
     {
