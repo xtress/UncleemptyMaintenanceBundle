@@ -46,7 +46,7 @@ class MaintenanceEventListener
     {
         if ($this->params['enabled']) {
 
-            if (is_array($this->params['allowance']['ips'])) {
+            if (is_array($this->params['allowance']['ips']) && !empty($this->params['allowance']['ips'])) {
 
             }
 

@@ -24,5 +24,10 @@
     "branch-alias" : {
       "dev-master" : "0.1-dev"
     }
+  },
+  "scripts": {
+    "post-install-cmd": [
+      "Uncleempty\\MaintenanceBundle\\Composer\\ScriptHandler::placeErrorView"
+    ]
   }
 }
