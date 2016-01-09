@@ -50,7 +50,6 @@ class MaintenanceEventListener
 
         if ($this->params['enabled']) {
 
-            var_dump($request->getPathInfo());exit;
             if (is_array($this->params['allowance']['ips']) && !empty($this->params['allowance']['ips'])) {
                 if ($this->checkClientIp($request->getClientIp(), $this->params['allowance']['ips'])) {
                     return;
