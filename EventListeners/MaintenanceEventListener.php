@@ -8,6 +8,8 @@
 
 namespace Uncleempty\MaintenanceBundle\EventListeners;
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
+use Symfony\Component\HttpKernel\Event\GetResponseEvent;
+use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Uncleempty\MaintenanceBundle\Exceptions\MaintenanceException;
 
 
@@ -42,7 +44,7 @@ class MaintenanceEventListener
     /**
      * @throws MaintenanceException
      */
-    public function onKernelRequest()
+    public function onKernelRequest(GetResponseEvent $event)
     {
         if ($this->params['enabled']) {
 
@@ -54,8 +56,10 @@ class MaintenanceEventListener
 
             }
 
-            $this->isResponseHandled = true;
-            throw new MaintenanceException($this->params['denial']['response_message'], $this->params['denial']['response_code']);
+            if (HttpKernelInterface::MASTER_REQUEST === $event->getRequestType()) {
+                $this->isResponseHandled = true;
+                throw new MaintenanceException($this->params['denial']['response_message'], $this->params['denial']['response_code']);
+            }
         }
     }
 
