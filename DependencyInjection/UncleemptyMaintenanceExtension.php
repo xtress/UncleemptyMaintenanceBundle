@@ -26,6 +26,6 @@ class UncleemptyMaintenanceExtension extends Extension
         $loader->load('services.yml');
 
         $maintenanceListenerDefinition = $container->getDefinition('uncleempty_maintenance.listener');
-        $maintenanceListenerDefinition->addMethodCall('setConfig', $config);
+        $maintenanceListenerDefinition->addMethodCall('setConfig', ['config' => $config]);
     }
 }
