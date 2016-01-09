@@ -10,6 +10,7 @@ namespace Uncleempty\MaintenanceBundle\EventListeners;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
+use Uncleempty\MaintenanceBundle\Exceptions\MaintenanceException;
 
 
 /**
@@ -64,24 +65,8 @@ class MaintenanceEventListener
 
             }
 
-            $this->forward(
-                'UncleemptyMaintenanceBundle:MaintenanceController:maintenanceAction',
-                [
-
-                ],
-                [
-                    'message' => $this->params['denial']['message']
-                ]
-            );
+            throw new MaintenanceException($this->params['denial']['response_message'], $this->params['denial']['response_code']);
         }
-    }
-
-    private function forward($controller, array $path = array(), array $query = array())
-    {
-        $path['_controller'] = $controller;
-        $subRequest = $this->requestStack->getCurrentRequest()->duplicate(null, $query, $path);
-
-        return $this->httpKernel->handle($subRequest, HttpKernelInterface::SUB_REQUEST);
     }
 
 
