@@ -14,7 +14,7 @@ class MaintenanceException extends \Exception
 
     public function __construct($message, $code)
     {
-        parent::__construct($message, $code, $this);
+        parent::__construct($message, $code);
     }
 
 }
