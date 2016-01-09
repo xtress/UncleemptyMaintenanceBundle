@@ -32,5 +32,8 @@
     "post-package-update": [
       "Uncleempty\\MaintenanceBundle\\Composer\\ScriptHandler::placeErrorView"
     ]
+  },
+  "require-dev": {
+    "symfony/symfony": "2.7"
   }
 }

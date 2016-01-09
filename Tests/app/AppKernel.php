@@ -1,12 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: empty
- * Date: 09.01.16
- * Time: 20:39
- */
-
-namespace Uncleempty\MaintenanceBundle\Tests\app;
 
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Config\Loader\LoaderInterface;
@@ -21,7 +13,8 @@ class AppKernel extends Kernel
     public function registerBundles()
     {
         $bundles = array(
-            //Указываем какие бандлы нам необходимы
+            new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
+            new \Symfony\Bundle\TwigBundle\TwigBundle()
         );
 
         return $bundles;
@@ -32,5 +25,6 @@ class AppKernel extends Kernel
      */
     public function registerContainerConfiguration(LoaderInterface $loader)
     {
+        $loader->load(__DIR__ . '/config/config.yml');
     }
 }

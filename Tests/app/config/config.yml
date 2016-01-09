@@ -1,0 +1,20 @@
+imports:
+    - { resource: services.yml }
+    - { resource: routing.yml }
+
+#    - { resource: ../../../Resources/config/routing.yml }
+
+parameters:
+    locale: en
+    secret: ThisTokenIsNotSoSecretChangeIt
+
+framework:
+    session:
+        # handler_id set to null will use default session handler from php.ini
+        handler_id:  ~
+    secret:          "%secret%"
+    router:
+        resource: "%kernel.root_dir%/config/routing.yml"
+        strict_requirements: ~
+    default_locale:  "%locale%"
+    test: ~
