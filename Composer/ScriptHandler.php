@@ -21,7 +21,7 @@ class ScriptHandler
             if (!is_dir(self::MAINTENANCE_ERROR_VIEW_PATH)) {
                 static::createDir(self::MAINTENANCE_ERROR_VIEW_PATH);
             }
-            copy(self::EXTENSION_ERROR_VIEW_PATH.'/'.self::MAINTENANCE_VIEW_NAME, self::MAINTENANCE_ERROR_VIEW_PATH.'/'.self::MAINTENANCE_VIEW_NAME);
+            copy(self::EXTENSION_ERROR_VIEW_PATH.'/'.self::MAINTENANCE_VIEW_NAME, self::MAINTENANCE_ERROR_VIEW_PATH.'/');
         }
     }
 

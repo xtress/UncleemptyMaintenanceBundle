@@ -7,6 +7,7 @@
  */
 
 namespace Uncleempty\MaintenanceBundle\EventListeners;
+use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
 use Uncleempty\MaintenanceBundle\Exceptions\MaintenanceException;
 
 
@@ -20,6 +21,8 @@ class MaintenanceEventListener
 {
     /** @var array $params */
     private $params;
+
+    private $isResponseHandled = false;
 
     /**
      *
@@ -51,7 +54,22 @@ class MaintenanceEventListener
 
             }
 
+            $this->isResponseHandled = true;
             throw new MaintenanceException($this->params['denial']['response_message'], $this->params['denial']['response_code']);
+        }
+    }
+
+    /**
+     * Rewrites the http code of the response
+     *
+     * @param FilterResponseEvent $event FilterResponseEvent
+     * @return void
+     */
+    public function onKernelResponse(FilterResponseEvent $event)
+    {
+        if ($this->isResponseHandled && $this->params['denial']['response_code'] !== null) {
+            $response = $event->getResponse();
+            $response->setStatusCode($this->params['denial']['response_code'], $this->params['denial']['response_message']);
         }
     }
 
