@@ -1,0 +1,11 @@
+#default:
+#    resource: "../../Controller/"
+#    type:     annotation
+#    prefix:   /
+dummy:
+    path:      /dummy
+    defaults:  { _controller: ../../Controller/DummyController:indexAction }
+
+closed_dummy:
+    path:      /closed/dummy
+    defaults:  { _controller: ../../Controller/DummyController:indexClosedAction }

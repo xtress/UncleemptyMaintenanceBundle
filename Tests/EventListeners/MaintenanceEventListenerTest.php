@@ -10,6 +10,7 @@ namespace Uncleempty\MaintenanceBundle\Tests\EventListeners;
 
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Uncleempty\MaintenanceBundle\EventListeners\MaintenanceEventListener;
@@ -37,7 +38,7 @@ class MaintenanceEventListenerTest extends WebTestCase
         $config = [
             'enabled'   => false,
             'allowance' => [
-                'path' => '/news',
+                'path' => null,
                 'ips'  => []
             ],
             'denial'    => [
@@ -51,8 +52,7 @@ class MaintenanceEventListenerTest extends WebTestCase
         $listener = new MaintenanceEventListener();
         $listener->setConfig($config);
 
-        $this->client->request('POST', '/cargos');
-        $request = $this->client->getRequest();
+        $request = new Request();
 
         $event = new GetResponseEvent(self::$kernel, $request, HttpKernelInterface::MASTER_REQUEST);
 
@@ -65,7 +65,7 @@ class MaintenanceEventListenerTest extends WebTestCase
         $config = [
             'enabled'   => true,
             'allowance' => [
-                'path' => '/news',
+                'path' => null,
                 'ips'  => ['127.0.0.1']
             ],
             'denial'    => [
@@ -79,8 +79,7 @@ class MaintenanceEventListenerTest extends WebTestCase
         $listener = new MaintenanceEventListener();
         $listener->setConfig($config);
 
-        $this->client->request('POST', '/cargos');
-        $request = $this->client->getRequest();
+        $request = new Request([], [], [], [], [], ['REMOTE_ADDR' => '127.0.0.1']);
 
         $event = new GetResponseEvent(self::$kernel, $request, HttpKernelInterface::MASTER_REQUEST);
 
@@ -92,7 +91,7 @@ class MaintenanceEventListenerTest extends WebTestCase
         $config = [
             'enabled'   => true,
             'allowance' => [
-                'path' => '/news',
+                'path' => '/dummy',
                 'ips'  => []
             ],
             'denial'    => [
@@ -106,8 +105,7 @@ class MaintenanceEventListenerTest extends WebTestCase
         $listener = new MaintenanceEventListener();
         $listener->setConfig($config);
 
-        $this->client->request('POST', '/news/list');
-        $request = $this->client->getRequest();
+        $request = new Request([], [], [], [], [], ['REQUEST_URI' => '/closed/dummy']);
 
         $event = new GetResponseEvent(self::$kernel, $request, HttpKernelInterface::MASTER_REQUEST);
 
@@ -133,8 +131,7 @@ class MaintenanceEventListenerTest extends WebTestCase
         $listener = new MaintenanceEventListener();
         $listener->setConfig($config);
 
-        $this->client->request('POST', '/news/list');
-        $request = $this->client->getRequest();
+        $request = new Request();
 
         try {
             $event = new GetResponseEvent(self::$kernel, $request, HttpKernelInterface::MASTER_REQUEST);

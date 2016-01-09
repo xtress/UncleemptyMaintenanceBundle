@@ -1,3 +1,0 @@
-default:
-    resource: "@UncleemptyMaintenanceBundle/Resources/config/routing.yml"
-    prefix:   /

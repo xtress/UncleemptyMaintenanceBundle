@@ -1,8 +1,5 @@
 imports:
     - { resource: services.yml }
-    - { resource: routing.yml }
-
-#    - { resource: ../../../Resources/config/routing.yml }
 
 parameters:
     locale: en
@@ -14,7 +11,7 @@ framework:
         handler_id:  ~
     secret:          "%secret%"
     router:
-        resource: "%kernel.root_dir%/config/routing.yml"
+        resource: "%kernel.root_dir%/Resources/routing.yml"
         strict_requirements: ~
     default_locale:  "%locale%"
     test: ~
