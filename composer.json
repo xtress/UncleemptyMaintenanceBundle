@@ -26,7 +26,10 @@
     }
   },
   "scripts": {
-    "post-install-cmd": [
+    "post-package-install": [
+      "Uncleempty\\MaintenanceBundle\\Composer\\ScriptHandler::placeErrorView"
+    ],
+    "post-package-update": [
       "Uncleempty\\MaintenanceBundle\\Composer\\ScriptHandler::placeErrorView"
     ]
   }
