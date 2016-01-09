@@ -21,23 +21,14 @@ use Uncleempty\MaintenanceBundle\Exceptions\MaintenanceException;
  */
 class MaintenanceEventListener
 {
-    /** @var HttpKernelInterface $httpKernel */
-    private $httpKernel;
-
-    /** @var RequestStack $requestStack */
-    private $requestStack;
-
     /** @var array $params */
     private $params;
 
     /**
-     * @param HttpKernelInterface $httpKernel
-     * @param RequestStack $requestStack
+     *
      */
-    public function __construct(HttpKernelInterface $httpKernel, RequestStack $requestStack)
+    public function __construct()
     {
-        $this->httpKernel   = $httpKernel;
-        $this->requestStack = $requestStack;
     }
 
     /**
