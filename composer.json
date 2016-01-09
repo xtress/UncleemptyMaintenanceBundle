@@ -1,0 +1,28 @@
+{
+  "name" : "uncleempty/maintenance-bundle",
+  "description" : "Symfony2 bundle, adding functionality to switch web-site into maintenance mode",
+  "type" : "symfony-bundle",
+  "authors" : [{
+    "name" : "Ilya Yarkovets",
+    "email" : "yarkovets.i@gmail.com"
+  }],
+  "keywords" : [
+    "Symfony2",
+    "bundle",
+    "maintenance"
+  ],
+  "license" : [
+    "MIT"
+  ],
+  "autoload" : {
+    "psr-0" : {
+      "Uncleempty\\MaintenanceBundle" : ""
+    }
+  },
+  "target-dir" : "Uncleempty/MaintenanceBundle",
+  "extra" : {
+    "branch-alias" : {
+      "dev-master" : "master"
+    }
+  }
+}
