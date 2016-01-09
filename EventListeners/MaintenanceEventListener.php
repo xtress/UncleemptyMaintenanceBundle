@@ -33,8 +33,6 @@ class MaintenanceEventListener
     /**
      * @param HttpKernelInterface $httpKernel
      * @param RequestStack $requestStack
-     *
-     * @param bool|false $debug
      */
     public function __construct(HttpKernelInterface $httpKernel, RequestStack $requestStack)
     {
@@ -51,7 +49,7 @@ class MaintenanceEventListener
     }
 
     /**
-     * @param GetResponseEvent $event
+     * @throws MaintenanceException
      */
     public function onKernelRequest()
     {
