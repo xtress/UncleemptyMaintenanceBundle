@@ -6,4 +6,3 @@ services:
         tags:
             - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
             - { name: kernel.event_listener, event: kernel.response, method: onKernelResponse }
-        arguments: [@http_kernel, @request_stack]

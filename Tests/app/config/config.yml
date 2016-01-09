@@ -15,3 +15,5 @@ framework:
         strict_requirements: ~
     default_locale:  "%locale%"
     test: ~
+    templating:
+        engines: ['twig']

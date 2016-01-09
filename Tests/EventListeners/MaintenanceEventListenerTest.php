@@ -141,4 +141,11 @@ class MaintenanceEventListenerTest extends WebTestCase
             $this->assertEquals(get_class($e), get_class(new MaintenanceException('dummy message', 503)));
         }
     }
+
+    public function testCheckIpMethod()
+    {
+        $listener = new MaintenanceEventListener();
+
+        $this->assertTrue($listener->checkClientIp('86.57.161.74', ['127.0.0.1', '86.57.161.74']));
+    }
 }

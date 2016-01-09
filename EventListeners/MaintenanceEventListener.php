@@ -27,13 +27,6 @@ class MaintenanceEventListener
     private $isResponseHandled = false;
 
     /**
-     *
-     */
-    public function __construct()
-    {
-    }
-
-    /**
      * @param $config
      */
     public function setConfig($config)
@@ -43,6 +36,9 @@ class MaintenanceEventListener
 
     /**
      * @param GetResponseEvent $event
+     * @return bool
+     *
+     * @throws MaintenanceException
      */
     public function onKernelRequest(GetResponseEvent $event)
     {
