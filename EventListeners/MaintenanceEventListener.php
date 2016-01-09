@@ -40,20 +40,29 @@ class MaintenanceEventListener
     {
         $this->params = $config;
     }
-    
+
     /**
      * @param GetResponseEvent $event
      */
     public function onKernelRequest(GetResponseEvent $event)
     {
+        $request = $event->getRequest();
+
         if ($this->params['enabled']) {
 
+            var_dump($request->getPathInfo());exit;
             if (is_array($this->params['allowance']['ips']) && !empty($this->params['allowance']['ips'])) {
-
+                if ($this->checkClientIp($request->getClientIp(), $this->params['allowance']['ips'])) {
+                    return;
+                }
             }
 
-            if ($this->params['allowance']['path'] !== null) {
-
+            if (
+                $this->params['allowance']['path'] !== null
+                && !empty($this->params['allowance']['path'])
+                && preg_match('{'.$this->params['allowance']['path'].'}', rawurldecode($request->getPathInfo()))
+            ) {
+                return;
             }
 
             if (HttpKernelInterface::MASTER_REQUEST === $event->getRequestType()) {
@@ -74,6 +83,15 @@ class MaintenanceEventListener
         if ($this->isResponseHandled && $this->params['denial']['response_code'] !== null) {
             $response = $event->getResponse();
             $response->setStatusCode($this->params['denial']['response_code'], $this->params['denial']['response_message']);
+        }
+    }
+
+    public function checkClientIp($clientIp, array $allowedIps = array())
+    {
+        if (count($allowedIps) > 0) {
+            return in_array($clientIp, $allowedIps);
+        } else {
+            return false;
         }
     }
 
