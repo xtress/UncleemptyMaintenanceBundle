@@ -10,13 +10,23 @@ namespace Uncleempty\MaintenanceBundle\Composer;
 
 class ScriptHandler
 {
-    const MAINTENANCE_ERROR_VIEW_PATH = 'app/Resources/TwigBundle/views/Exception/error503.html.twig';
-    const EXTENSION_ERROR_VIEW_PATH   = 'vendor/uncleempty/maintenance-bundle/Uncleempty/MaintenanceBundle/Resources/views/error503.html.twig';
+    const MAINTENANCE_ERROR_VIEW_PATH = 'app/Resources/TwigBundle/views/Exception';
+    const EXTENSION_ERROR_VIEW_PATH   = 'vendor/uncleempty/maintenance-bundle/Uncleempty/MaintenanceBundle/Resources/views';
+
+    const MAINTENANCE_VIEW_NAME = 'error503.html.twig';
 
     public static function placeErrorView()
     {
-        if (!is_file(self::MAINTENANCE_ERROR_VIEW_PATH)) {
-            copy(self::EXTENSION_ERROR_VIEW_PATH, self::MAINTENANCE_ERROR_VIEW_PATH);
+        if (!is_file(self::MAINTENANCE_ERROR_VIEW_PATH.'/'.self::MAINTENANCE_VIEW_NAME)) {
+            if (!is_dir(self::MAINTENANCE_ERROR_VIEW_PATH)) {
+                static::createDir(self::MAINTENANCE_ERROR_VIEW_PATH);
+            }
+            copy(self::EXTENSION_ERROR_VIEW_PATH.'/'.self::MAINTENANCE_VIEW_NAME, self::MAINTENANCE_ERROR_VIEW_PATH.'/'.self::MAINTENANCE_VIEW_NAME);
         }
+    }
+
+    private static function createDir($path)
+    {
+        mkdir($path, 0755, true);
     }
 }
