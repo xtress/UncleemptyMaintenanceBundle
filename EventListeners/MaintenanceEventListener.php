@@ -28,29 +28,19 @@ class MaintenanceEventListener
     /** @var RequestStack $requestStack */
     private $requestStack;
 
-    /** @var boolean $debug */
-    private $debug;
-
     /** @var array $params */
     private $params;
 
     /**
-     * @param ContainerInterface $container
-     *
-     * @param $debug
-     */
-    /**
-     * @param ContainerInterface $container
      * @param HttpKernelInterface $httpKernel
      * @param RequestStack $requestStack
      *
      * @param bool|false $debug
      */
-    public function __construct(ContainerInterface $container, HttpKernelInterface $httpKernel, RequestStack $requestStack, $debug = false)
+    public function __construct(HttpKernelInterface $httpKernel, RequestStack $requestStack)
     {
         $this->httpKernel   = $httpKernel;
         $this->requestStack = $requestStack;
-        $this->debug        = $debug;
     }
 
     /**
@@ -64,13 +54,9 @@ class MaintenanceEventListener
     /**
      * @param GetResponseEvent $event
      */
-    public function onKernelRequest(GetResponseEvent $event)
+    public function onKernelRequest()
     {
         if ($this->params['enabled']) {
-
-            $debug = $this->debug;
-
-            $debug = $debug ? true : false;
 
             if (is_array($this->params['allowance']['ips'])) {
 
