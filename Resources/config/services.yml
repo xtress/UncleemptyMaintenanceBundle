@@ -9,4 +9,4 @@ services:
         class: %uncleempty_maintenance.listener.class%
         tags:
             - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
-        arguments: [@service_container]
+        arguments: [@http_kernel, @request_stack, %kernel.debug%]

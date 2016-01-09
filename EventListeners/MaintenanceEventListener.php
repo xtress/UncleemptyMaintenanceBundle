@@ -39,11 +39,18 @@ class MaintenanceEventListener
      *
      * @param $debug
      */
-    public function __construct(ContainerInterface $container)
+    /**
+     * @param ContainerInterface $container
+     * @param HttpKernelInterface $httpKernel
+     * @param RequestStack $requestStack
+     *
+     * @param bool|false $debug
+     */
+    public function __construct(ContainerInterface $container, HttpKernelInterface $httpKernel, RequestStack $requestStack, $debug = false)
     {
-        $this->httpKernel   = $container->get('http_kernel');
-        $this->requestStack = $container->get('request_stack');
-        $this->debug        = $container->getParameter('kernel.debug');
+        $this->httpKernel   = $httpKernel;
+        $this->requestStack = $requestStack;
+        $this->debug        = $debug;
     }
 
     /**
@@ -61,7 +68,9 @@ class MaintenanceEventListener
     {
         if ($this->params['enabled']) {
 
-            $request = $event->getRequest();
+            $debug = $this->debug;
+
+            $debug = $debug ? true : false;
 
             if (is_array($this->params['allowance']['ips'])) {
 

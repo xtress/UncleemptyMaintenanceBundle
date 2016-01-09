@@ -18,9 +18,11 @@ class MaintenanceController extends Controller
      */
     public function maintenanceAction(Request $request)
     {
-        $this->forward('Uncleempty/MaintenanceBundle/Controller/MaintenanceController:maintenanceAction');
+        $params = $request->request->all();
 
-        return ['message' => 'message'];
+        $message = $params['message'];
+
+        return ['message' => $message];
     }
 
 }
