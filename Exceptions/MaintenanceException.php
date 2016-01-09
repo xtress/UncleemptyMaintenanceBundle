@@ -8,13 +8,14 @@
 
 namespace Uncleempty\MaintenanceBundle\Exceptions;
 
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
-class MaintenanceException extends \Exception
+class MaintenanceException extends HttpException
 {
 
     public function __construct($message, $code)
     {
-        parent::__construct($message, $code);
+        parent::__construct($code, $message, null, null, $code);
     }
 
 }
